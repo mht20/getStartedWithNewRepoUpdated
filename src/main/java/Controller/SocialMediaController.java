@@ -28,8 +28,6 @@ public class SocialMediaController {
         Javalin app = Javalin.create();
         //app.get("example-endpoint", this::exampleHandler);
         //app.get("/", ctx -> ctx.result("Hello world")); // context path default
-        System.out.println("Helllo World this is me !");
-
         app.post("localhost:8080/{newAccount}",this::registerHandler);
         app.post("localhost:8080/{login}",this::loginHandler);
         app.get("localhost:8080/accounts{account_id}", this::account_idHandler);
@@ -61,7 +59,11 @@ public class SocialMediaController {
         }
         //ctx.json("new account created:" );
     }
-    private void loginHandler(Context ctx){
+    private void loginHandler(Context ctx) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        Account account = mapper.readValue(ctx.body(),Account.class);
+        //???back to it soon
+
         ctx.json("sample text");
     }
     private void account_idHandler(Context ctx) {

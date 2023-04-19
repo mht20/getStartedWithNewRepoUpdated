@@ -4,7 +4,7 @@ import Service.AccountRegistration;
 
 import java.util.Scanner;
 
-import static Service.AccountRegistration.validatePassword;
+//import static Service.AccountRegistration.validatePassword;
 import Service.*;
 
 /**

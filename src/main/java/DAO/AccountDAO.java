@@ -34,7 +34,33 @@ public class AccountDAO {
         }
         return null;
     }
+    public Account login(String username, String password){
+        Connection connection = ConnectionUtil.getConnection();
+        try {
+            String sql = "select username,password(?,?) from Account";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
+//            preparedStatement.setString(1, account.getUsername());
+//            preparedStatement.setString(2,account.getPassword());
+            preparedStatement.executeQuery();
+
+            ResultSet resultSet = preparedStatement.executeQuery("select username, password(?,? " +
+                    "from Account)");
+            while (resultSet.next()){ //Until next row is present otherwise it return false
+                resultSet.getString("username");//fetch the values present in database
+                resultSet.getString("password");
+            if(username.equals(username) && password.equals(password))
+            {
+                return null;
+            }else
+            {//return null;
+            }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
     public List<Account> getAllAccounts() {
         Connection connection = ConnectionUtil.getConnection();
         List<Account> account = new ArrayList<>();
@@ -54,6 +80,33 @@ public class AccountDAO {
         }
         return account;
     }
+    public Account getAccountById(int account_id){
+        Connection connection = ConnectionUtil.getConnection();
+        try{
+            String sql = "SELECT * FROM Account WHERE Account_id=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,account_id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                Account account= new Account(rs.getInt("account_id"),
+                        rs.getString("username"),rs.getString("password"));
+                return account;
+            }
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
 
+        }
+        return null;
+    }
+
+//    public Account login(Account account) {
+//    }
+//    public  void  updateAccount(int account_id, Account account){
+//        Connection connection = ConnectionUtil.getConnection();
+//        try {
+//            //SQL logic
+//            String sql = "UPDATE Account SET "
+//        }
+    //}
 
 }

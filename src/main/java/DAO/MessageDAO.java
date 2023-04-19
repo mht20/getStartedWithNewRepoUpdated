@@ -29,12 +29,9 @@ public class MessageDAO {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-
         }
-
         return messages;
     }
-
     public Message getMessageById(int message_id) {
         Connection connection = ConnectionUtil.getConnection();
 
@@ -48,18 +45,15 @@ public class MessageDAO {
                 Message message = new Message(rs.getInt("message_id"), rs.getInt("posted_id"), rs.getString("message_text"),
                         rs.getLong("time_posted_epoch"));
             }
-
         } catch (SQLException e) {
             System.out.print(e);
         }
         return null;
-
     }
-
     public Message deleteMessageById(int messageId) {
         Connection connection = ConnectionUtil.getConnection();
         try {
-            String sql = "Delete * from Message where messageId = ?";
+            String sql = "Delete  from Message where messageId = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
             preparedStatement.setInt(1, messageId);
@@ -76,7 +70,6 @@ public class MessageDAO {
         }
         return null;
     }
-
     public void updateMessage(int message_id, int posted_id, String message_text,
                               long time_posted_epoch) {
         Connection connection = ConnectionUtil.getConnection();
@@ -97,10 +90,12 @@ public class MessageDAO {
             System.out.println(e.getMessage());
 
         }
-
     }
-
-    public List<Message> getAllTypeOfMessages(int messageId, int postedId, String messageText, long timePostedEpoch) {
+    public List<Message> getAllTypeOfMessages(int messageId,
+                                              int postedId,
+                                              String messageText,
+                                              long timePostedEpoch)
+    {
         return null;
     }
 }

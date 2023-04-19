@@ -16,6 +16,9 @@ public class MessageService {
     public MessageService(MessageDAO messageDAO){
         this.messageDAO = messageDAO;
     }
+    public Message createMessage(){
+        return new Message();
+    }
     public Message addMessages(Message message){
         return messageDAO.getMessageById(message.message_id);
     }
@@ -27,9 +30,14 @@ public class MessageService {
         }
         return null;
     }
+    // Use the messageDAO to retrieve a List containing all messages.
+    //You could use the flightDAO.getAllFlights method.
+    //return all messages in the database.
     public List<Message> getAllMessages(){
         return messageDAO.getAllMessages();
     }
+    //Use the messageDAO to retrieve a List containing all
+    // You could use the messageDAO.getAllTypeOfMessages method.
     public List<Message> getAllTypeOfMessages(int message_id,int posted_id, String message_text
     ,long time_posted_epoch){
         return messageDAO.getAllTypeOfMessages(message_id,posted_id,message_text,time_posted_epoch);
