@@ -12,7 +12,7 @@ public class MessageDAO {
     ////TODO: Retrieve a specific  Messages using its message ID
     public List<Message> getAllMessages() {
         Connection connection = ConnectionUtil.getConnection();
-        List<Message> messages = new ArrayList<Message>();
+        List<Message> messages = new ArrayList<>();
 
         try {
             String sql = "select * from Message";
@@ -114,11 +114,32 @@ public class MessageDAO {
         return null;
 
     }
+    public List<Message> getAllTypeOfMessages()
+    {
+        Connection connection = ConnectionUtil.getConnection();
+        List<Message> messages = new ArrayList<>();
+        try {
+            String sql = "select * from Message";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                Message message = new Message(rs.getInt("message_id"),
+                        rs.getInt("posted_by"), rs.getString("message_text"),
+                        rs.getLong("time_posted_epoch"));
+                message.getMessage_text();
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return messages;
+    }
+
+
     public List<Message> getAllTypeOfMessages(int messageId,
                                               int postedId,
                                               String messageText,
-                                              long timePostedEpoch)
-    {
+                                              long timePostedEpoch) {
         return null;
     }
 }

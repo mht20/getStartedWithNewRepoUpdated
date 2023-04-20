@@ -26,6 +26,8 @@ public class AccountService {
     public Account login( Account account){
         return (Account) accountDAO.getAllAccounts();
     }
+
+
     public Account updateAccount(int account_id, Account account){
         if(accountDAO.getAccountById(account_id)== null ){
            // return null;

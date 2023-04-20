@@ -22,6 +22,9 @@ public class MessageService {
     public Message addMessages(Message message){
         return messageDAO.getMessageById(message.message_id);
     }
+    public Message newMessage(int message_id, Message message){
+        return messageDAO.insertNewMessage(message);
+    }
     public Message updateMessages(int message_id, Message message) {
         if (messageDAO.getMessageById(message_id) == null) {
             //return null;
@@ -42,4 +45,10 @@ public class MessageService {
     ,long time_posted_epoch){
         return messageDAO.getAllTypeOfMessages(message_id,posted_id,message_text,time_posted_epoch);
     }
+
+    public List<Message> getAllTypeOfMessages() {
+        return messageDAO.getAllTypeOfMessages();
+    }
+
+
 }
