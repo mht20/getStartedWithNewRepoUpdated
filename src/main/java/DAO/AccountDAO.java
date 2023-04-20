@@ -67,11 +67,12 @@ public class AccountDAO {
         try {
             //SQL logic here
             String sql = "select * from Account";
-
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();
+
             while(rs.next()){
-                Account accounts = new Account(rs.getInt("account_id"), rs.getString("username"),
+                Account accounts = new Account(rs.getInt("account_id"),
+                        rs.getString("username"),
                         rs.getString("password"));
                 account.add(accounts);
             }
@@ -83,13 +84,16 @@ public class AccountDAO {
     public Account getAccountById(int account_id){
         Connection connection = ConnectionUtil.getConnection();
         try{
-            String sql = "SELECT * FROM Account WHERE Account_id=?";
+            String sql = "SELECT * FROM Account WHERE Account_id=?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
             preparedStatement.setInt(1,account_id);
+
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()){
                 Account account= new Account(rs.getInt("account_id"),
-                        rs.getString("username"),rs.getString("password"));
+                        rs.getString("username"),
+                        rs.getString("password"));
                 return account;
             }
         }catch (SQLException e){
@@ -99,14 +103,23 @@ public class AccountDAO {
         return null;
     }
 
-//    public Account login(Account account) {
-//    }
-//    public  void  updateAccount(int account_id, Account account){
-//        Connection connection = ConnectionUtil.getConnection();
-//        try {
-//            //SQL logic
-//            String sql = "UPDATE Account SET "
-//        }
-    //}
+    public  Account insertAccount(Account account){
+        Connection connection = ConnectionUtil.getConnection();
+        try {
+            //sql logic
+            String sql = "INSERT INTO Account(account_id,username,password) VALUES (?,?,?);";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setInt(1,account.getAccount_id());
+            preparedStatement.setString(2, account.getUsername());
+            preparedStatement.setString(3,account.getPassword());
+            preparedStatement.executeUpdate();
+            return account;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 
 }
